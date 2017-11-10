@@ -8,15 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.jasper.runtime.HttpJspBase;
-
 import com.melardev.tutsservlet.filters.FilterServlet;
 
 import javafx.scene.control.TreeTableRow;
 
 /**
  * Servlet implementation class ServletFiltered
- * 
  */
 //@WebServlet("/servlet-filtered")
 public class ServletFiltered extends HttpServlet {
@@ -28,8 +25,7 @@ public class ServletFiltered extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
-		if (true)
-			throw new RuntimeException();
+		
 		request.setAttribute("my_attribute", "from_servlet");
 		getServletContext().getRequestDispatcher("/filters/filter_servlet.jsp").include(request, response);
 	}

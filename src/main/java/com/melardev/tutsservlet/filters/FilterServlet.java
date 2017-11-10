@@ -16,10 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
- * 
+ *
+ * One of the advantages of using Filters is decoupling the components, in other words we can create some kind
+ * of plugins which some business logic code that is not tied to a servlet or other component, so it can be
+ * reused easily.
  * Filters may be used for logging, File processing(Compress files to make them smaller, scaling images, etc)
  * authentication, authorization, redirect user based on Locale 
  * filtering(xss for example),
+ *
  *
  */
 
@@ -55,11 +59,11 @@ public class FilterServlet implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {
-
-		
+		// Create wrappers around the request and response, this is the so called decorator design pattern
+		// this is meant to help extensibility, which is what we are doing with MyHttpServletResponse
 		HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper((HttpServletRequest) request);
 		HttpServletResponseWrapper responseWrapper = new MyHttpServletResponse((HttpServletResponse) response);
-
+		
 		// pass the request along the filter chain
 		System.out.println(request.getDispatcherType());
 		chain.doFilter(requestWrapper, responseWrapper);

@@ -9,9 +9,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 @WebServlet(name = "ServletBasicUsage", urlPatterns = "/basic", initParams = {
 		@WebInitParam(name = "name", value = "MyBasicServlet"), @WebInitParam(name = "", value = ""), })
@@ -24,8 +22,18 @@ public class ServletBasic extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
+		HttpSessionBindingListener obj = new HttpSessionBindingListener() {
+			public void valueBound(HttpSessionBindingEvent event) {
+				System.out.println("OLAO");
+			}
+
+			public void valueUnbound(HttpSessionBindingEvent event) {
+				System.out.println("AAA");
+			}
+		};
 
 		PrintWriter out = response.getWriter();
+
 		out.println("<!DOCTYPE html>" + "<html>" + "	<head>" + "   	<meta charset=\"UTF-8\">"
 				+ "    	<title>title</title>" + "  </head>" + "	<body>" + "		Really basic stuff isn't ?<br />"
 				+ "		<a href='" + getServletContext().getContextPath() + "'>Go Home</a>" + "	</body>" + "</html>");

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-@WebServlet(urlPatterns = "/api/students/*")
+@WebServlet(urlPatterns = "/api/books/*")
 public class ServletWS extends HttpServlet {
 
 	private static class Book {
@@ -38,11 +38,11 @@ public class ServletWS extends HttpServlet {
 	static {
 		books = new CopyOnWriteArrayList<Book>();
 		books.add(new Book("Murach's Java Servlets and JSP, 3rd Edition",
-				"Joel Murach (Author) &‎ Michael Urban (Author)", "978-1890774783"));
-		books.add(new Book("Head First Servlets and JSP", "Bryan Basham,‎ Kathy Sierra,‎ Bert Bates",
+				"Joel Murach (Author) & Michael Urban (Author)", "978-1890774783"));
+		books.add(new Book("Head First Servlets and JSP", "Bryan Basham, Kathy Sierra, Bert Bates",
 				"978-0596516680"));
-		books.add(new Book("Java Servlet Programming", "Jason Hunter,‎ William Crawford", "978-0596000400"));
-		books.add(new Book("Core Servlets and Javaserver Pages", "by Marty Hall (Author),‎ Larry Brown (Author)",
+		books.add(new Book("Java Servlet Programming", "Jason Hunter, William Crawford", "978-0596000400"));
+		books.add(new Book("Core Servlets and Javaserver Pages", "by Marty Hall (Author), Larry Brown (Author)",
 				"978-0130092298"));
 		books.add(new Book("Java Servlet & JSP Cookbook", "Bruce W. Perry", "978-0596005726"));
 	}
@@ -63,7 +63,7 @@ public class ServletWS extends HttpServlet {
 	}
 
 	private Book getBookFromUrl(StringBuffer requestUrl) {
-		Pattern pattern = Pattern.compile("students/(\\d+)");
+		Pattern pattern = Pattern.compile("books/(\\d+)");
 		Matcher matcher = pattern.matcher(requestUrl);
 		Book book = null;
 		if (matcher.find()) {
@@ -82,7 +82,7 @@ public class ServletWS extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 		Gson gson = new Gson();
-		if (Pattern.matches(".*api/students/$", request.getRequestURL())) {
+		if (Pattern.matches(".*api/books/$", request.getRequestURL())) {
 			InputStreamReader reader = new InputStreamReader(request.getInputStream());
 			Book book = gson.fromJson(reader, Book.class);
 			books.add(book);

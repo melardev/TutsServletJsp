@@ -12,8 +12,8 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	
-<!-- 
+
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/Error</location>
@@ -23,7 +23,7 @@
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/Error</location>
 	</error-page>
--->
+
 	<servlet>
 		<description>ServletFromJsp</description>
 		<servlet-name>ServletFromJsp</servlet-name>
@@ -76,4 +76,38 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
+	<listener>
+		<listener-class>com.melardev.tutsservlet.listeners.ListenerApp</listener-class>
+	</listener>
+
+
+	<security-role>
+		<role-name>manager</role-name>
+	</security-role>
+	<security-role>
+		<role-name>developer</role-name>
+	</security-role>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Restricted resource</web-resource-name>
+			<url-pattern>/restricted/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>developer</role-name>
+			<role-name>manager</role-name>
+		</auth-constraint>
+
+	</security-constraint>
+
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>Whatever</realm-name>
+    </login-config>
+	<!--<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/restricted/form_based/login.jsp</form-login-page>
+			<form-error-page>/restricted/form_based/error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>-->
 </web-app>
